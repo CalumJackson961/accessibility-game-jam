@@ -1855,8 +1855,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa55d95a8e2f804d8a5d1d8f7085538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  MainMenu: {fileID: 1926789507}
-  OptionsMenu: {fileID: 331204872}
 --- !u!4 &776207546
 Transform:
   m_ObjectHideFlags: 0
@@ -2819,6 +2817,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1884620573}
   - component: {fileID: 1884620574}
+  - component: {fileID: 1884620575}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -2899,6 +2898,18 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1884620575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884620572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ac2dcaccd71fbe4f9eb9bfd9ce9a155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RumbleSliderUI
 --- !u!1 &1905010025
 GameObject:
   m_ObjectHideFlags: 0
