@@ -17,15 +17,16 @@ public class Game : MonoBehaviour
      */
     private Queue<TONE> solution;
     private Queue<TONE> answer;
-    private AudioClip triangleTone;
-    private AudioClip squareTone;
-    private AudioClip circleTone;
-    private AudioClip crossTone;
+
 
     /*
      * Public Attributes
      */
     public AudioSource audioSource;
+    public AudioClip triangleTone;
+    public AudioClip squareTone;
+    public AudioClip circleTone;
+    public AudioClip crossTone;
 
 
     void Start()
