@@ -2,26 +2,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum TONE
+{
+    TRIANGLE,
+    CIRCLE,
+    CROSS,
+    SQUARE
+}
+
 public class Game : MonoBehaviour
 {
+    /*
+     * Private Attributes
+     */
+    private Queue<TONE> solution;
+    private Queue<TONE> answer;
+    private AudioClip triangleTone;
+    private AudioClip squareTone;
+    private AudioClip circleTone;
+    private AudioClip crossTone;
 
     /*
-     * Private Members
+     * Public Attributes
      */
-    private Queue<int> solution;
-    private Queue<int> currentAnswer;
+    public AudioSource audioSource;
 
 
     void Start()
     {
-        solution = new Queue<int>();
-        currentAnswer = new Queue<int>();
+        solution = new Queue<TONE>();
+        answer = new Queue<TONE>();
     }
 
 
-    public void Enqueue(int tone)
+    public void Enqueue(TONE tone)
     {
-        solution.Enqueue(tone);
+        answer.Enqueue(tone);
     }
 
     /*
@@ -32,6 +48,26 @@ public class Game : MonoBehaviour
     public void CheckAnswer()
     {
         // Iterate over answer queue and play each tone using the audio manager
+        foreach (var tone in answer)
+        {
+            switch (tone)
+            {
+                case TONE.TRIANGLE:
+                    audioSource.PlayOneShot(triangleTone);
+                    break;
+                case TONE.CIRCLE:
+                    audioSource.PlayOneShot(circleTone);
+                    break;
+                case TONE.CROSS:
+                    audioSource.PlayOneShot(crossTone);
+                    break;
+                case TONE.SQUARE:
+                    audioSource.PlayOneShot(squareTone);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     /*
@@ -41,13 +77,31 @@ public class Game : MonoBehaviour
     public void PlaySolution()
     {
         // Iterate over answer queue and play each tone using the audio manager
+        foreach (var tone in solution) {
+            switch (tone) {
+                case TONE.TRIANGLE:
+                    audioSource.PlayOneShot(triangleTone);
+                    break;
+                case TONE.CIRCLE:
+                    audioSource.PlayOneShot(circleTone);
+                    break;
+                case TONE.CROSS:
+                    audioSource.PlayOneShot(crossTone);
+                    break;
+                case TONE.SQUARE:
+                    audioSource.PlayOneShot(squareTone);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     /*
      * Resets the answer queue, allowing the players to start over
      */
-    public void ResetSolution()
+    public void ResetAnswer()
     {
-        currentAnswer.Clear();
+        answer.Clear();
     }
 }
