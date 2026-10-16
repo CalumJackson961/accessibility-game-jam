@@ -3,12 +3,12 @@ using UnityEngine.Events;
 
 public class Emitter : MonoBehaviour
 {
-    [SerializeField] UnityEvent<int> m_MyEvent;
+    [SerializeField] UnityEvent<int> m_Enqueue;
 
     void Start()
     {
         //gameObject.SendMessage("Enqueue", 5.0);
-        m_MyEvent.Invoke(123123);
+        m_Enqueue.Invoke(123123);
     }
 
     // Update is called once per frame
