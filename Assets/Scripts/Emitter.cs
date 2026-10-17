@@ -21,20 +21,20 @@ public class Emitter : MonoBehaviour
         //  PlayerInput.playerIndex identifies the joined player,
         //  store player index in player controller class, get in collider, retrieve index
 
-        PlayerController player =
-            other.GetComponentInParent<PlayerController>();
+        //PlayerController player =
+        //    other.GetComponentInParent<PlayerController>();
 
-        if (player == null)
-            return;
+        //if (player == null)
+        //    return;
 
-        if (player.pressedButton != -1)
-        {
-            assignedInt = player.pressedButton;
+        //if (player.pressedButton != -1)
+        //{
+        //    assignedInt = player.pressedButton;
 
-            Debug.Log(
-                $"Player {player.playerId} assigned value {assignedInt}"
-            );
-        }
+        //    Debug.Log(
+        //        $"Player {player.playerId} assigned value {assignedInt}"
+        //    );
+        //}
 
         //if (other.CompareTag("Player"))
         //{
