@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum Motor { Left, Right, Both }
+
 public class HapticsManager : MonoBehaviour
 {
     const string PrefKey = "rumbleIntensity";
@@ -21,12 +23,14 @@ public class HapticsManager : MonoBehaviour
         }
     }
 
-    public float Intensity { get; private set; } = 1f;     // 0 to 1
-    public event Action<float> IntensityChanged;           // fires when any slider changes it
+    public float Intensity { get; private set; } = 1f;     // 0 to 1, set by the slider
+    public event Action<float> IntensityChanged;
 
-    Coroutine current;
+    bool leftOn;     // heavy, low-frequency motor
+    bool rightOn;    // light, high-frequency motor
+    Coroutine leftRoutine;
+    Coroutine rightRoutine;
 
-    // Creates the manager before the first scene loads, so it never depends on scene setup
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Bootstrap() { var _ = Instance; }
 
@@ -48,24 +52,52 @@ public class HapticsManager : MonoBehaviour
         IntensityChanged?.Invoke(Intensity);
     }
 
-    // Call this from your game whenever something should rumble
-    public void Pulse(float low, float high, float seconds)
+    // Rumble the left motor, the right motor, or both, for the given seconds
+    public void Rumble(Motor motor, float seconds)
     {
-        var pad = Gamepad.current;
-        if (pad == null || Intensity <= 0f) return;
+        if (motor == Motor.Left || motor == Motor.Both)
+        {
+            if (leftRoutine != null) StopCoroutine(leftRoutine);
+            leftRoutine = StartCoroutine(MotorRoutine(true, seconds));
+        }
 
-        if (current != null) StopCoroutine(current);
-        current = StartCoroutine(PulseRoutine(pad, low, high, seconds));
+        if (motor == Motor.Right || motor == Motor.Both)
+        {
+            if (rightRoutine != null) StopCoroutine(rightRoutine);
+            rightRoutine = StartCoroutine(MotorRoutine(false, seconds));
+        }
     }
 
-    IEnumerator PulseRoutine(Gamepad pad, float low, float high, float seconds)
+    IEnumerator MotorRoutine(bool left, float seconds)
     {
-        pad.SetMotorSpeeds(Mathf.Clamp01(low * Intensity), Mathf.Clamp01(high * Intensity));
+        if (left) leftOn = true; else rightOn = true;
+        Apply();
+
         yield return new WaitForSecondsRealtime(seconds);
-        pad.ResetHaptics();
+
+        if (left) leftOn = false; else rightOn = false;
+        Apply();
     }
 
-    void OnDisable() { Gamepad.current?.ResetHaptics(); }
+    // Sends the active motors to the controller at the slider's intensity
+    void Apply()
+    {
+        bool silent = Intensity <= 0f || (!leftOn && !rightOn);
+
+        foreach (var pad in Gamepad.all)
+        {
+            if (silent)
+                pad.ResetHaptics();
+            else
+                pad.SetMotorSpeeds(leftOn ? Intensity : 0f, rightOn ? Intensity : 0f);
+        }
+    }
+
+    void OnDisable()
+    {
+        foreach (var pad in Gamepad.all)
+            pad.ResetHaptics();
+    }
     void OnApplicationPause(bool paused) { if (paused) PlayerPrefs.Save(); }
     void OnApplicationQuit() { PlayerPrefs.Save(); }
 }
