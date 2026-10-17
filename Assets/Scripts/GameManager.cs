@@ -5,9 +5,6 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    // Level pattern to repeat
-    List<int> answer;
-
     Game game;
 
     //[System.Serializable]
@@ -49,9 +46,13 @@ public class GameManager : MonoBehaviour
         game.Enqueue(tone);
     }
 
+    public void LoadLevel(int levelId)
+    {
+
+    }
+
     public void InitPattern(List<int> answer)
     {
-        this.answer = answer;
     }
 
     public void Test()
