@@ -29,7 +29,7 @@ public class RumbleSliderUI : MonoBehaviour
     void OnSliderMoved(float value)
     {
         HapticsManager.Instance.SetIntensity(value);
-        HapticsManager.Instance.Pulse(0.5f, 0.5f, 0.15f);                  // preview buzz
+        HapticsManager.Instance.Rumble(Motor.Both,0.15f);              // preview buzz
     }
 
     void OnIntensityChanged(float value)
