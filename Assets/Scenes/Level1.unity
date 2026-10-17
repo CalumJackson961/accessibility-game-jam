@@ -2473,7 +2473,7 @@ GameObject:
   - component: {fileID: 1049739246}
   - component: {fileID: 1049739245}
   - component: {fileID: 1049739244}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3977,7 +3977,7 @@ GameObject:
   - component: {fileID: 1713489678}
   - component: {fileID: 1713489677}
   - component: {fileID: 1713489676}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -4100,7 +4100,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0596, y: -4.6339, z: 0}
-  m_LocalScale: {x: 17.887001, y: 0.7521992, z: 1}
+  m_LocalScale: {x: 22.00101, y: 0.7521992, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -4371,7 +4371,7 @@ Transform:
   m_GameObject: {fileID: 1748938976}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.1, y: 0, z: 0}
+  m_LocalPosition: {x: 10.85, y: 0, z: 0}
   m_LocalScale: {x: 0.21, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4700,7 +4700,7 @@ Transform:
   m_GameObject: {fileID: 1862374259}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.9, y: 0, z: 0}
+  m_LocalPosition: {x: -10.83, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4719,7 +4719,7 @@ GameObject:
   - component: {fileID: 1891791501}
   - component: {fileID: 1891791500}
   - component: {fileID: 1891791502}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
