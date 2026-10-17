@@ -1,18 +1,108 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum TONE
+{
+    TRIANGLE,
+    CIRCLE,
+    CROSS,
+    SQUARE
+}
+
 public class Game : MonoBehaviour
 {
+    /*
+     * Private Attributes
+     */
+    private Queue<TONE> solution;
+    private Queue<TONE> answer;
+
+
+    /*
+     * Public Attributes
+     */
+    public AudioSource audioSource;
+    public AudioClip triangleTone;
+    public AudioClip squareTone;
+    public AudioClip circleTone;
+    public AudioClip crossTone;
+
+
     void Start()
     {
+        solution = new Queue<TONE>();
+        answer = new Queue<TONE>();
     }
-    // Update is called once per frame
-    //void Update()
-    //{    
-    //}
 
-    public void Enqueue(int tone)
+
+    public void Enqueue(TONE tone)
     {
-        Debug.Log(tone.ToString());
+        answer.Enqueue(tone);
+    }
+
+    /*
+     * Compares the answer to the solution
+     * Players the answer back to the players
+     * The full song will play if they solve the puzzle
+     */
+    public void CheckAnswer()
+    {
+        // Iterate over answer queue and play each tone using the audio manager
+        foreach (var tone in answer)
+        {
+            switch (tone)
+            {
+                case TONE.TRIANGLE:
+                    audioSource.PlayOneShot(triangleTone);
+                    break;
+                case TONE.CIRCLE:
+                    audioSource.PlayOneShot(circleTone);
+                    break;
+                case TONE.CROSS:
+                    audioSource.PlayOneShot(crossTone);
+                    break;
+                case TONE.SQUARE:
+                    audioSource.PlayOneShot(squareTone);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /*
+     * Plays the solution for the players
+     * Happens by default at the beginning of the level
+     */
+    public void PlaySolution()
+    {
+        // Iterate over answer queue and play each tone using the audio manager
+        foreach (var tone in solution) {
+            switch (tone) {
+                case TONE.TRIANGLE:
+                    audioSource.PlayOneShot(triangleTone);
+                    break;
+                case TONE.CIRCLE:
+                    audioSource.PlayOneShot(circleTone);
+                    break;
+                case TONE.CROSS:
+                    audioSource.PlayOneShot(crossTone);
+                    break;
+                case TONE.SQUARE:
+                    audioSource.PlayOneShot(squareTone);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /*
+     * Resets the answer queue, allowing the players to start over
+     */
+    public void ResetAnswer()
+    {
+        answer.Clear();
     }
 }
