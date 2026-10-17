@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class GameManager : MonoBehaviour
 {
     // Level pattern to repeat
-    Queue<int> answer;
+    List<int> answer;
 
     // fill queues per player, combine in Test() function
     Queue<int> player1;
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
         player1 = new Queue<int>();
         player2 = new Queue<int>();
-        answer = new Queue<int>();
+        answer = new List<int>();
         toneAudioMap = new Dictionary<int, AudioSource>();
 
         foreach (ToneMapping mapping in toneMappings)
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void InitPattern(Queue<int> answer)
+    public void InitPattern(List<int> answer)
     {
         this.answer = answer;
     }
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         int[] p1 = player1.ToArray();
         int[] p2 = player2.ToArray();
 
-        if (p1.Length < 2 || p2.Length < 3)
+        if (p1.Length + p2.Length < answer.Count)
         {
             Debug.LogWarning("Not enough tones queued to run Test().");
             return;
