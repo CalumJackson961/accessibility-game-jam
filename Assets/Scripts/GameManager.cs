@@ -8,21 +8,18 @@ public class GameManager : MonoBehaviour
     // Level pattern to repeat
     List<int> answer;
 
-    // fill queues per player, combine in Test() function
-    Queue<int> player1;
-    Queue<int> player2;
+    Game game;
 
+    //[System.Serializable]
+    //public class ToneMapping
+    //{
+    //    public int toneId;
+    //    public AudioSource audioSource;
+    //}
 
-    [System.Serializable]
-    public class ToneMapping
-    {
-        public int toneId;
-        public AudioSource audioSource;
-    }
+    //[SerializeField] private ToneMapping[] toneMappings;
 
-    [SerializeField] private ToneMapping[] toneMappings;
-
-    private Dictionary<int, AudioSource> toneAudioMap;
+    //private Dictionary<int, AudioSource> toneAudioMap;
 
 
     public static GameManager Instance { get; private set; }
@@ -35,40 +32,21 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
-        player1 = new Queue<int>();
-        player2 = new Queue<int>();
-        answer = new List<int>();
-        toneAudioMap = new Dictionary<int, AudioSource>();
+        game = new Game();
+        //toneAudioMap = new Dictionary<int, AudioSource>();
 
-        foreach (ToneMapping mapping in toneMappings)
-        {
-            if (mapping.audioSource != null)
-                toneAudioMap[mapping.toneId] = mapping.audioSource;
-        }
+        //foreach (ToneMapping mapping in toneMappings)
+        //{
+        //    if (mapping.audioSource != null)
+        //        toneAudioMap[mapping.toneId] = mapping.audioSource;
+        //}
         DontDestroyOnLoad(gameObject);
     }
 
-    private void PlayTone(int toneId)
-    {
-        if (toneAudioMap.TryGetValue(toneId, out AudioSource source))
-        {
-            source.Play();
-        }
-        else
-        {
-            Debug.LogWarning($"No AudioSource mapped for tone ID {toneId}");
-        }
-    }
 
-
-    public void Enqueue(int toneid, int userid)
+    public void Enqueue(TONE tone)
     {
-        if (userid == 1)
-        {
-            player1.Enqueue(toneid);
-        } else {
-            player2.Enqueue(toneid);
-        }
+        game.Enqueue(tone);
     }
 
     public void InitPattern(List<int> answer)
@@ -78,24 +56,11 @@ public class GameManager : MonoBehaviour
 
     public void Test()
     {
-        int[] p1 = player1.ToArray();
-        int[] p2 = player2.ToArray();
-
-        if (p1.Length + p2.Length < answer.Count)
-        {
-            Debug.LogWarning("Not enough tones queued to run Test().");
-            return;
-        }
-
-        PlayTone(p1[0]);
-        PlayTone(p2[0]);
-        PlayTone(p1[1]);
-        PlayTone(p2[2]);
+        game.CheckAnswer();
     }
 
     public void Reset()
     {
-        player1.Clear();
-        player2.Clear();
+        game.ResetAnswer();
     }
 }
